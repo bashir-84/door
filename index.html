@@ -65,7 +65,7 @@ function draw(){
  let changed=lastSeat!==seat;
  document.querySelectorAll('#ring .seat').forEach((e,i)=>{e.classList.toggle('active',i===seat);let out=times[i%n]<=0;if(out&&!e.classList.contains('out')){e.classList.add('exit-pop')}e.classList.toggle('out',out);if(changed)e.style.transform=`translate(-50%,-50%) rotate(${180+orbit-i*360/(n*2)}deg) translateY(calc(-1 * var(--radius))) rotate(${-180-orbit+i*360/(n*2)}deg)`;});
  if(paintedRevision!==wordRevision||lastMode!==mode){$('word').replaceChildren();let text=document.createElement('span');text.textContent=mode==='paused'?'توقف':word;$('word').append(text);if(mode==='running')motion($('word'),'swapping');paintedRevision=wordRevision;}
- $('word').disabled=mode!=='running';$('play').classList.toggle('paused',mode==='paused');$('error').disabled=mode!=='running';$('skip').disabled=mode!=='running'||(performance.now()-turnStarted)<10000;
+ $('word').disabled=mode!=='running';$('play').classList.toggle('paused',mode==='paused');$('error').disabled=mode!=='running';$('skip').disabled=mode!=='running';
  if(changed||lastMode!==mode){let next=seat;do{next=(next+1)%(n*2)}while(times[next%n]<=0);$('status').textContent=`هم‌تیمی: ${playerName((seat+n)%(n*2))} · بعدی: ${playerName(next)}`;$('activePlayer').textContent=playerName(seat);$('activePlayer').style.setProperty('--active-color',colors[t]);motion($('activePlayer'),'button-pop');}
  let charge=Math.min(1,(performance.now()-turnStarted)/10000);if(Math.abs(charge-chargePaint)>.005){$('skip').style.setProperty('--charge',charge);chargePaint=charge;}lastSeat=seat;lastMode=mode;
 }
